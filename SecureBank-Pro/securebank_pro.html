@@ -1,0 +1,1923 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🏦 SecureBank Pro - Game Bảo mật Ngân hàng Chuyên nghiệp</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-bank-blue: #003366;
+            --secondary-bank-blue: #004080;
+            --accent-gold: #FFD700;
+            --success-green: #28a745;
+            --danger-red: #dc3545;
+            --warning-orange: #fd7e14;
+            --info-cyan: #17a2b8;
+            --dark-bg: #0a1929;
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --text-primary: #ffffff;
+            --text-secondary: #b0bec5;
+            --border-color: rgba(255, 215, 0, 0.2);
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(135deg, var(--dark-bg) 0%, var(--primary-bank-blue) 25%, var(--secondary-bank-blue) 50%, var(--primary-bank-blue) 75%, var(--dark-bg) 100%);
+            background-size: 400% 400%;
+            animation: bankGradientFlow 12s ease-in-out infinite;
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Enhanced Banking Background Effects */
+        .bank-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .bank-particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: var(--accent-gold);
+            border-radius: 50%;
+            animation: goldParticleFloat 8s ease-in-out infinite;
+            box-shadow: 0 0 10px var(--accent-gold);
+        }
+
+        .digital-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(255, 215, 0, 0.08) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 215, 0, 0.08) 1px, transparent 1px);
+            background-size: 60px 60px;
+            animation: gridPulse 15s linear infinite;
+            z-index: -2;
+        }
+
+        /* Bank Logo Animation */
+        .bank-logo {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            font-size: 1.5rem;
+            color: var(--accent-gold);
+            text-shadow: 0 0 20px var(--accent-gold);
+            animation: logoPulse 3s ease-in-out infinite;
+            z-index: 1000;
+        }
+
+        /* Main container */
+        .bank-container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Enhanced Header */
+        .bank-header {
+            background: linear-gradient(135deg, var(--card-bg) 0%, rgba(255, 215, 0, 0.1) 100%);
+            border: 2px solid var(--border-color);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(15px);
+            box-shadow: 
+                0 15px 35px rgba(0, 51, 102, 0.3),
+                inset 0 1px 0 rgba(255, 215, 0, 0.2);
+            animation: headerGlow 0.8s ease-out;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bank-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.1), transparent);
+            animation: headerShine 3s ease-in-out infinite;
+        }
+
+        .bank-title {
+            font-size: 3.2rem;
+            font-weight: 900;
+            text-align: center;
+            background: linear-gradient(45deg, var(--accent-gold), #fff, var(--accent-gold));
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: goldTextFlow 4s ease-in-out infinite;
+            margin-bottom: 15px;
+            text-shadow: 0 0 30px var(--accent-gold);
+        }
+
+        .bank-subtitle {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        /* Enhanced Stats Panel */
+        .stats-panel {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, var(--card-bg) 0%, rgba(255, 215, 0, 0.05) 100%);
+            border: 2px solid var(--border-color);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: statCardAppear 0.8s ease-out;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, transparent, rgba(255, 215, 0, 0.1), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .stat-card:hover::before {
+            opacity: 1;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            border-color: var(--accent-gold);
+            box-shadow: 
+                0 20px 40px rgba(255, 215, 0, 0.2),
+                0 0 30px rgba(255, 215, 0, 0.3);
+        }
+
+        .stat-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            animation: iconBounce 2s infinite ease-in-out;
+            filter: drop-shadow(0 0 10px currentColor);
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--accent-gold);
+            margin-bottom: 8px;
+            text-shadow: 0 0 15px var(--accent-gold);
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        /* Security Level Indicator */
+        .security-indicator {
+            background: linear-gradient(135deg, var(--card-bg) 0%, rgba(40, 167, 69, 0.1) 100%);
+            border: 2px solid rgba(40, 167, 69, 0.3);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 30px;
+            text-align: center;
+            animation: securityPulse 3s ease-in-out infinite;
+        }
+
+        .security-level {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--success-green);
+            margin-bottom: 10px;
+        }
+
+        .security-bars {
+            display: flex;
+            justify-content: center;
+            gap: 5px;
+            margin-top: 10px;
+        }
+
+        .security-bar {
+            width: 30px;
+            height: 8px;
+            background: rgba(40, 167, 69, 0.3);
+            border-radius: 4px;
+            transition: background 0.3s ease;
+        }
+
+        .security-bar.active {
+            background: var(--success-green);
+            box-shadow: 0 0 10px var(--success-green);
+        }
+
+        /* Enhanced Game Panels */
+        .game-main {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .game-panel {
+            background: linear-gradient(135deg, var(--card-bg) 0%, rgba(255, 215, 0, 0.03) 100%);
+            border: 2px solid var(--border-color);
+            border-radius: 18px;
+            padding: 25px;
+            backdrop-filter: blur(12px);
+            box-shadow: 
+                0 15px 35px rgba(0, 0, 0, 0.2),
+                inset 0 1px 0 rgba(255, 215, 0, 0.1);
+            animation: panelSlideIn 0.8s ease-out;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .game-panel::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.08), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .game-panel:hover::before {
+            left: 100%;
+        }
+
+        .panel-title {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: var(--accent-gold);
+            margin-bottom: 20px;
+            text-align: center;
+            padding: 12px;
+            background: rgba(255, 215, 0, 0.1);
+            border-radius: 10px;
+            border-left: 4px solid var(--accent-gold);
+            text-shadow: 0 0 10px var(--accent-gold);
+        }
+
+        /* Quiz Panel Specific Styles */
+        .quiz-panel {
+            grid-column: span 3;
+        }
+
+        .quiz-question {
+            background: rgba(23, 162, 184, 0.1);
+            border: 2px solid rgba(23, 162, 184, 0.3);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        .quiz-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .quiz-option {
+            background: linear-gradient(135deg, var(--card-bg) 0%, rgba(255, 215, 0, 0.05) 100%);
+            border: 2px solid var(--border-color);
+            border-radius: 10px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        .quiz-option:hover {
+            border-color: var(--accent-gold);
+            background: rgba(255, 215, 0, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .quiz-option.selected {
+            border-color: var(--info-cyan);
+            background: rgba(23, 162, 184, 0.2);
+        }
+
+        .quiz-option.correct {
+            border-color: var(--success-green);
+            background: rgba(40, 167, 69, 0.2);
+            animation: correctAnswer 0.5s ease;
+        }
+
+        .quiz-option.incorrect {
+            border-color: var(--danger-red);
+            background: rgba(220, 53, 69, 0.2);
+            animation: incorrectAnswer 0.5s ease;
+        }
+
+        .quiz-timer {
+            background: linear-gradient(90deg, var(--danger-red) 0%, var(--warning-orange) 50%, var(--success-green) 100%);
+            height: 8px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        .quiz-timer-bar {
+            height: 100%;
+            background: rgba(255, 255, 255, 0.3);
+            transition: width 0.1s linear;
+        }
+
+        /* Enhanced Input Fields */
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-label {
+            display: block;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        .input-field {
+            width: 100%;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 215, 0, 0.02) 100%);
+            border: 2px solid var(--border-color);
+            border-radius: 10px;
+            padding: 14px 18px;
+            color: var(--text-primary);
+            font-family: 'Fira Code', 'Consolas', monospace;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: var(--accent-gold);
+            box-shadow: 
+                0 0 20px rgba(255, 215, 0, 0.3),
+                inset 0 1px 0 rgba(255, 215, 0, 0.1);
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.08) 0%, rgba(255, 215, 0, 0.03) 100%);
+        }
+
+        .input-field:hover {
+            border-color: rgba(255, 215, 0, 0.4);
+        }
+
+        /* Enhanced Buttons */
+        .btn {
+            background: linear-gradient(135deg, var(--secondary-bank-blue) 0%, var(--primary-bank-blue) 100%);
+            color: var(--text-primary);
+            border: 2px solid rgba(255, 215, 0, 0.2);
+            border-radius: 10px;
+            padding: 14px 24px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 
+                0 12px 25px rgba(0, 51, 102, 0.4),
+                0 0 20px rgba(255, 215, 0, 0.3);
+            border-color: var(--accent-gold);
+        }
+
+        .btn:active {
+            transform: translateY(-1px);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, var(--success-green) 0%, #22c55e 100%);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, var(--danger-red) 0%, #ef4444 100%);
+            animation: dangerPulse 2s infinite;
+        }
+
+        .btn-warning {
+            background: linear-gradient(135deg, var(--warning-orange) 0%, #f97316 100%);
+        }
+
+        .btn-info {
+            background: linear-gradient(135deg, var(--info-cyan) 0%, #06b6d4 100%);
+        }
+
+        .btn-gold {
+            background: linear-gradient(135deg, var(--accent-gold) 0%, #fbbf24 100%);
+            color: var(--dark-bg);
+        }
+
+        /* Enhanced Progress Bars */
+        .progress-container {
+            background: rgba(0, 0, 0, 0.3);
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            height: 30px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--success-green) 0%, var(--accent-gold) 50%, var(--success-green) 100%);
+            background-size: 200% 100%;
+            animation: progressFlow 2s ease-in-out infinite;
+            transition: width 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-primary);
+            font-weight: bold;
+            font-size: 13px;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Transaction History */
+        .transaction-list {
+            background: rgba(0, 0, 0, 0.2);
+            border: 2px solid var(--border-color);
+            border-radius: 10px;
+            max-height: 200px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+        }
+
+        .transaction-item {
+            padding: 12px 16px;
+            border-bottom: 1px solid rgba(255, 215, 0, 0.1);
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .transaction-item:hover {
+            background: rgba(255, 215, 0, 0.05);
+        }
+
+        .transaction-item:last-child {
+            border-bottom: none;
+        }
+
+        .transaction-success {
+            border-left: 4px solid var(--success-green);
+            background: rgba(40, 167, 69, 0.05);
+        }
+
+        .transaction-failed {
+            border-left: 4px solid var(--danger-red);
+            background: rgba(220, 53, 69, 0.05);
+        }
+
+        /* Enhanced Notifications */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, var(--success-green) 0%, #22c55e 100%);
+            color: var(--text-primary);
+            padding: 18px 24px;
+            border-radius: 12px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 
+                0 15px 35px rgba(40, 167, 69, 0.4),
+                0 0 20px rgba(40, 167, 69, 0.3);
+            transform: translateX(120%);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 2000;
+            backdrop-filter: blur(10px);
+            font-weight: 500;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        .notification.error {
+            background: linear-gradient(135deg, var(--danger-red) 0%, #ef4444 100%);
+            box-shadow: 
+                0 15px 35px rgba(220, 53, 69, 0.4),
+                0 0 20px rgba(220, 53, 69, 0.3);
+        }
+
+        /* Enhanced Modal */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 3000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, var(--card-bg) 0%, rgba(255, 215, 0, 0.05) 100%);
+            border: 2px solid var(--border-color);
+            border-radius: 20px;
+            padding: 35px;
+            max-width: 700px;
+            width: 90%;
+            backdrop-filter: blur(15px);
+            transform: scale(0.8) translateY(50px);
+            transition: transform 0.3s ease;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal.show .modal-content {
+            transform: scale(1) translateY(0);
+        }
+
+        /* Button Grid */
+        .button-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        /* Floating Action Buttons */
+        .fab-container {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 1500;
+        }
+
+        .fab {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent-gold) 0%, #fbbf24 100%);
+            color: var(--dark-bg);
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 8px 25px rgba(255, 215, 0, 0.4);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .fab:hover {
+            transform: scale(1.1);
+            box-shadow: 0 12px 35px rgba(255, 215, 0, 0.6);
+        }
+
+        /* Animations */
+        @keyframes bankGradientFlow {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        @keyframes goldParticleFloat {
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg);
+                opacity: 0.4;
+            }
+            50% {
+                transform: translateY(-30px) rotate(180deg);
+                opacity: 1;
+            }
+        }
+
+        @keyframes gridPulse {
+            0% { transform: translate(0, 0) scale(1); opacity: 0.5; }
+            50% { transform: translate(30px, 30px) scale(1.05); opacity: 0.8; }
+            100% { transform: translate(60px, 60px) scale(1); opacity: 0.5; }
+        }
+
+        @keyframes logoPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        @keyframes headerGlow {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes headerShine {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        @keyframes goldTextFlow {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        @keyframes statCardAppear {
+            from {
+                opacity: 0;
+                transform: translateY(20px) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        @keyframes iconBounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        @keyframes securityPulse {
+            0%, 100% { border-color: rgba(40, 167, 69, 0.3); }
+            50% { border-color: rgba(40, 167, 69, 0.6); }
+        }
+
+        @keyframes panelSlideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes correctAnswer {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes incorrectAnswer {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+            100% { transform: translateX(0); }
+        }
+
+        @keyframes dangerPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes progressFlow {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .game-main {
+                grid-template-columns: 1fr 1fr;
+            }
+            .quiz-panel {
+                grid-column: span 2;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .game-main {
+                grid-template-columns: 1fr;
+            }
+            .quiz-panel {
+                grid-column: span 1;
+            }
+            .stats-panel {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .bank-title {
+                font-size: 2.2rem;
+            }
+            .quiz-options {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, var(--accent-gold) 0%, #fbbf24 100%);
+            border-radius: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, #fbbf24 0%, var(--accent-gold) 100%);
+        }
+    </style>
+</head>
+<body>
+    <!-- Enhanced Background Effects -->
+    <div class="bank-logo">🏦 SecureBank</div>
+    <div class="digital-grid"></div>
+    <div class="bank-particles" id="bankParticles"></div>
+
+    <!-- Main Bank Container -->
+    <div class="bank-container">
+        <!-- Enhanced Header -->
+        <div class="bank-header">
+            <h1 class="bank-title">🏦 SecureBank Pro</h1>
+            <p class="bank-subtitle">🛡️ Hệ thống Bảo mật Giao dịch Ngân hàng Chuyên nghiệp</p>
+        </div>
+
+        <!-- Security Level Indicator -->
+        <div class="security-indicator">
+            <div class="security-level" id="securityLevel">🔒 Mức độ Bảo mật: THƯỜNG</div>
+            <div class="security-bars">
+                <div class="security-bar active"></div>
+                <div class="security-bar" id="bar2"></div>
+                <div class="security-bar" id="bar3"></div>
+                <div class="security-bar" id="bar4"></div>
+                <div class="security-bar" id="bar5"></div>
+            </div>
+        </div>
+
+        <!-- Enhanced Stats Panel -->
+        <div class="stats-panel">
+            <div class="stat-card">
+                <div class="stat-icon">💰</div>
+                <div class="stat-value" id="score">0</div>
+                <div class="stat-label">Điểm số</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">🎯</div>
+                <div class="stat-value" id="level">1</div>
+                <div class="stat-label">Cấp độ</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">🔥</div>
+                <div class="stat-value" id="streak">0</div>
+                <div class="stat-label">Streak thành công</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">⏱️</div>
+                <div class="stat-value" id="timer">60</div>
+                <div class="stat-label">Thời gian (giây)</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">🏆</div>
+                <div class="stat-value" id="quizScore">0</div>
+                <div class="stat-label">Điểm Quiz</div>
+            </div>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="progress-container">
+            <div class="progress-bar" id="progress" style="width: 100%;">
+                <span>Sẵn sàng bắt đầu giao dịch</span>
+            </div>
+        </div>
+
+        <!-- Quiz Panel -->
+        <div class="game-panel quiz-panel" id="quizPanel" style="display: none;">
+            <h3 class="panel-title">🧠 Mini Quiz Bảo mật Ngân hàng</h3>
+            
+            <div class="quiz-timer">
+                <div class="quiz-timer-bar" id="quizTimerBar" style="width: 100%;"></div>
+            </div>
+            
+            <div class="quiz-question" id="quizQuestion">
+                Chọn "Bắt đầu Quiz" để bắt đầu thử thách kiến thức bảo mật!
+            </div>
+            
+            <div class="quiz-options" id="quizOptions">
+                <!-- Quiz options will be populated by JavaScript -->
+            </div>
+            
+            <div class="button-grid">
+                <button class="btn btn-info" onclick="startQuiz()">🚀 Bắt đầu Quiz</button>
+                <button class="btn btn-warning" onclick="skipQuiz()">⏭️ Bỏ qua</button>
+                <button class="btn btn-success" onclick="submitQuizAnswer()" id="submitQuizBtn" disabled>✅ Trả lời</button>
+            </div>
+        </div>
+
+        <!-- Main Game Panels -->
+        <div class="game-main">
+            <!-- Sender Panel -->
+            <div class="game-panel">
+                <h3 class="panel-title">📤 BÊN GỬI (SENDER)</h3>
+                
+                <div class="input-group">
+                    <label class="input-label">🏦 Tài khoản gửi:</label>
+                    <input type="text" class="input-field" id="senderAccount" placeholder="Nhập số tài khoản (VD: 123456789)">
+                </div>
+                
+                <div class="input-group">
+                    <label class="input-label">💰 Số tiền chuyển (VND):</label>
+                    <input type="number" class="input-field" id="amount" placeholder="Nhập số tiền (VD: 1000000)">
+                </div>
+                
+                <div class="input-group">
+                    <label class="input-label">💬 Nội dung chuyển khoản:</label>
+                    <input type="text" class="input-field" id="message" placeholder="Nội dung giao dịch...">
+                </div>
+                
+                <div class="input-group">
+                    <label class="input-label">🔐 Khóa mã hóa AES:</label>
+                    <input type="text" class="input-field" id="aesKey" readonly placeholder="Khóa AES sẽ tự động tạo...">
+                </div>
+                
+                <div class="button-grid">
+                    <button class="btn btn-gold" onclick="generateAESKey()">🔑 Tạo khóa AES</button>
+                    <button class="btn" onclick="encryptData()">🔒 Mã hóa dữ liệu</button>
+                    <button class="btn btn-success" onclick="sendTransaction()">📨 Gửi giao dịch</button>
+                </div>
+            </div>
+
+            <!-- Receiver Panel -->
+            <div class="game-panel">
+                <h3 class="panel-title">📥 BÊN NHẬN (RECEIVER)</h3>
+                
+                <div class="input-group">
+                    <label class="input-label">📦 Dữ liệu đã mã hóa:</label>
+                    <input type="text" class="input-field" id="encryptedData" readonly placeholder="Dữ liệu mã hóa sẽ hiển thị ở đây...">
+                </div>
+                
+                <div class="input-group">
+                    <label class="input-label">🔓 Khóa giải mã:</label>
+                    <input type="text" class="input-field" id="decryptKey" placeholder="Nhập khóa để giải mã...">
+                </div>
+                
+                <div class="input-group">
+                    <label class="input-label">✅ Dữ liệu đã giải mã:</label>
+                    <input type="text" class="input-field" id="decryptedData" readonly placeholder="Dữ liệu giải mã sẽ hiển thị ở đây...">
+                </div>
+                
+                <div class="input-group">
+                    <label class="input-label">🔢 Mã OTP (6 chữ số):</label>
+                    <input type="text" class="input-field" id="otpInput" placeholder="Nhập mã OTP để xác thực..." maxlength="6">
+                </div>
+                
+                <div class="button-grid">
+                    <button class="btn" onclick="decryptData()">🔓 Giải mã dữ liệu</button>
+                    <button class="btn btn-warning" onclick="generateOTP()">📱 Tạo mã OTP</button>
+                    <button class="btn btn-success" onclick="verifyTransaction()">✅ Xác thực giao dịch</button>
+                </div>
+            </div>
+
+            <!-- Security Tools Panel -->
+            <div class="game-panel">
+                <h3 class="panel-title">🔧 Công cụ Bảo mật</h3>
+                
+                <div class="input-group">
+                    <label class="input-label">🛡️ Kiểm tra Hash SHA-256:</label>
+                    <input type="text" class="input-field" id="hashInput" placeholder="Nhập dữ liệu để hash...">
+                </div>
+                
+                <div class="input-group">
+                    <label class="input-label">📜 Kết quả Hash:</label>
+                    <input type="text" class="input-field" id="hashResult" readonly placeholder="Hash SHA-256 sẽ hiển thị ở đây...">
+                </div>
+                
+                <div class="input-group">
+                    <label class="input-label">🔍 Phát hiện Phishing:</label>
+                    <input type="text" class="input-field" id="phishingInput" placeholder="Nhập URL hoặc email để kiểm tra...">
+                </div>
+                
+                <div class="input-group">
+                    <label class="input-label">⚠️ Kết quả Phân tích:</label>
+                    <input type="text" class="input-field" id="phishingResult" readonly placeholder="Kết quả phân tích sẽ hiển thị ở đây...">
+                </div>
+                
+                <div class="button-grid">
+                    <button class="btn btn-info" onclick="generateHash()">🔨 Tạo Hash</button>
+                    <button class="btn btn-warning" onclick="checkPhishing()">🔍 Kiểm tra Phishing</button>
+                    <button class="btn btn-gold" onclick="showQuiz()">🧠 Bắt đầu Quiz</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Transaction History -->
+        <div class="game-panel">
+            <h3 class="panel-title">📋 Lịch sử Giao dịch & Hoạt động</h3>
+            <div class="transaction-list" id="transactionHistory">
+                <div class="transaction-item">
+                    🏁 Chào mừng đến với SecureBank Pro! Hãy bắt đầu giao dịch đầu tiên của bạn.
+                </div>
+            </div>
+        </div>
+
+        <!-- Control Panel -->
+        <div class="game-panel">
+            <h3 class="panel-title">🎮 Bảng Điều khiển</h3>
+            <div class="button-grid">
+                <button class="btn btn-info" onclick="showHelp()">❓ Hướng dẫn</button>
+                <button class="btn btn-danger" onclick="resetGame()">🔄 Khởi động lại</button>
+                <button class="btn btn-warning" onclick="showUpgrades()">🏪 Cửa hàng nâng cấp</button>
+                <button class="btn btn-success" onclick="nextLevel()">⬆️ Level tiếp theo</button>
+                <button class="btn btn-gold" onclick="exportData()">💾 Xuất dữ liệu</button>
+                <button class="btn" onclick="importData()">📁 Nhập dữ liệu</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Action Buttons -->
+    <div class="fab-container">
+        <button class="fab" onclick="showQuiz()" title="Bắt đầu Quiz">
+            🧠
+        </button>
+        <button class="fab" onclick="showHelp()" title="Hướng dẫn">
+            ❓
+        </button>
+        <button class="fab" onclick="emergencyStop()" title="Dừng khẩn cấp">
+            🚨
+        </button>
+    </div>
+
+    <!-- Notification -->
+    <div class="notification" id="notification"></div>
+
+    <!-- Enhanced Modal -->
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <h2 id="modalTitle">Modal Title</h2>
+            <div id="modalContent">Modal content goes here</div>
+            <div style="text-align: center; margin-top: 25px;">
+                <button class="btn btn-gold" onclick="closeModal()">Đóng</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Enhanced Game State
+        let gameState = {
+            score: 0,
+            level: 1,
+            streak: 0,
+            timer: 60,
+            currentAESKey: '',
+            currentOTP: '',
+            transactions: [],
+            timerInterval: null,
+            quizScore: 0,
+            currentQuiz: null,
+            quizTimer: 180, // 3 minutes
+            quizTimerInterval: null,
+            selectedQuizAnswer: null,
+            securityLevel: 1
+        };
+
+        // Quiz Questions Database
+        const quizQuestions = [
+            {
+                question: "AES là viết tắt của gì trong bảo mật thông tin?",
+                options: ["Advanced Encryption Standard", "Automated Error System", "Advanced Electronic Security", "Applied Encryption Software"],
+                correct: 0,
+                explanation: "AES (Advanced Encryption Standard) là thuật toán mã hóa đối xứng được sử dụng rộng rãi."
+            },
+            {
+                question: "Mã hóa RSA sử dụng loại khóa nào?",
+                options: ["Khóa đối xứng", "Khóa bất đối xứng", "Khóa hash", "Khóa session"],
+                correct: 1,
+                explanation: "RSA sử dụng mã hóa khóa bất đối xứng với cặp khóa công khai và khóa riêng."
+            },
+            {
+                question: "SHA-256 tạo ra hash có độ dài bao nhiêu bit?",
+                options: ["128 bit", "192 bit", "256 bit", "512 bit"],
+                correct: 2,
+                explanation: "SHA-256 tạo ra hash có độ dài cố định 256 bit (32 bytes)."
+            },
+            {
+                question: "Đâu là dấu hiệu của email phishing?",
+                options: ["Địa chỉ gửi chính thức", "Nội dung rõ ràng", "Yêu cầu thông tin cá nhân khẩn cấp", "Có chữ ký số"],
+                correct: 2,
+                explanation: "Email phishing thường tạo cảm giác khẩn cấp và yêu cầu thông tin nhạy cảm."
+            },
+            {
+                question: "OTP có ý nghĩa gì trong bảo mật?",
+                options: ["One Time Password", "Online Transaction Protocol", "Optimal Time Processing", "Open Transfer Platform"],
+                correct: 0,
+                explanation: "OTP (One Time Password) là mật khẩu sử dụng một lần để tăng cường bảo mật."
+            },
+            {
+                question: "Tấn công Man-in-the-Middle là gì?",
+                options: ["Tấn công vào server", "Nghe lén giữa hai bên giao tiếp", "Phá hủy dữ liệu", "Tấn công từ chối dịch vụ"],
+                correct: 1,
+                explanation: "Man-in-the-Middle là tấn công nghe lén và can thiệp vào quá trình giao tiếp giữa hai bên."
+            },
+            {
+                question: "Firewall hoạt động ở lớp nào của mô hình OSI?",
+                options: ["Lớp 1-2", "Lớp 3-4", "Lớp 5-6", "Lớp 7"],
+                correct: 1,
+                explanation: "Firewall chủ yếu hoạt động ở lớp Network (3) và Transport (4) của mô hình OSI."
+            },
+            {
+                question: "Brute Force Attack là gì?",
+                options: ["Tấn công vật lý", "Thử tất cả khả năng mật khẩu", "Tấn công mạng xã hội", "Phishing qua email"],
+                correct: 1,
+                explanation: "Brute Force Attack là phương pháp thử tất cả khả năng mật khẩu có thể để crack hệ thống."
+            }
+        ];
+
+        // Initialize game
+        document.addEventListener('DOMContentLoaded', function() {
+            createBankParticles();
+            startTimer();
+            updateDisplay();
+            updateSecurityLevel();
+        });
+
+        // Create enhanced bank particles
+        function createBankParticles() {
+            const particlesContainer = document.getElementById('bankParticles');
+            const particleCount = 60;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'bank-particle';
+                
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 8 + 's';
+                particle.style.animationDuration = (Math.random() * 6 + 6) + 's';
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Enhanced AES Key Generation
+        function generateAESKey() {
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*';
+            let key = '';
+            for (let i = 0; i < 32; i++) { // 256-bit key
+                key += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            gameState.currentAESKey = key;
+            document.getElementById('aesKey').value = key;
+            showNotification('🔑 Khóa AES 256-bit đã được tạo thành công!', 'success');
+            addToHistory('🔑 Tạo khóa AES 256-bit mới', 'success');
+            gameState.score += 10;
+            updateDisplay();
+        }
+
+        // Enhanced encryption with UTF-8 support
+        function encryptData() {
+            const account = document.getElementById('senderAccount').value;
+            const amount = document.getElementById('amount').value;
+            const message = document.getElementById('message').value;
+            const key = document.getElementById('aesKey').value;
+
+            if (!account || !amount || !message || !key) {
+                showNotification('❌ Vui lòng điền đầy đủ thông tin!', 'error');
+                return;
+            }
+
+            // Validate account number
+            if (!/^\d{9,12}$/.test(account)) {
+                showNotification('❌ Số tài khoản phải từ 9-12 chữ số!', 'error');
+                return;
+            }
+
+            // Validate amount
+            if (isNaN(amount) || amount <= 0) {
+                showNotification('❌ Số tiền phải là số dương!', 'error');
+                return;
+            }
+
+            try {
+                // Enhanced encryption simulation
+                const data = JSON.stringify({
+                    account: account,
+                    amount: parseFloat(amount),
+                    message: message,
+                    timestamp: new Date().toISOString(),
+                    hash: generateSimpleHash(account + amount + message)
+                });
+                
+                // UTF-8 safe base64 encoding
+                const utf8Data = unescape(encodeURIComponent(data + key));
+                const encrypted = btoa(utf8Data);
+                
+                document.getElementById('encryptedData').value = encrypted;
+                showNotification('🔒 Dữ liệu đã được mã hóa AES-256 thành công!', 'success');
+                addToHistory(`🔒 Mã hóa giao dịch ${formatCurrency(amount)} VND`, 'success');
+                gameState.score += 20;
+                updateDisplay();
+            } catch (error) {
+                showNotification('❌ Lỗi mã hóa dữ liệu!', 'error');
+            }
+        }
+
+        // Enhanced decryption with UTF-8 support
+        function decryptData() {
+            const encrypted = document.getElementById('encryptedData').value;
+            const key = document.getElementById('decryptKey').value;
+
+            if (!encrypted || !key) {
+                showNotification('❌ Vui lòng nhập dữ liệu mã hóa và khóa!', 'error');
+                return;
+            }
+
+            try {
+                // UTF-8 safe base64 decoding
+                const decoded = atob(encrypted);
+                const utf8Decoded = decodeURIComponent(escape(decoded));
+                const originalKey = gameState.currentAESKey;
+                
+                if (key === originalKey) {
+                    const data = utf8Decoded.replace(originalKey, '');
+                    const parsed = JSON.parse(data);
+                    
+                    document.getElementById('decryptedData').value = 
+                        `Tài khoản: ${parsed.account} | Số tiền: ${formatCurrency(parsed.amount)} VND | Nội dung: ${parsed.message} | Thời gian: ${new Date(parsed.timestamp).toLocaleString()}`;
+                    
+                    showNotification('🔓 Giải mã AES-256 thành công!', 'success');
+                    addToHistory(`🔓 Giải mã thành công giao dịch ${formatCurrency(parsed.amount)} VND`, 'success');
+                    gameState.score += 30;
+                    updateDisplay();
+                } else {
+                    showNotification('❌ Khóa giải mã không chính xác!', 'error');
+                    addToHistory('❌ Thất bại: Khóa giải mã sai', 'failed');
+                    gameState.streak = Math.max(0, gameState.streak - 1);
+                }
+            } catch (e) {
+                showNotification('❌ Lỗi giải mã dữ liệu!', 'error');
+                addToHistory('❌ Lỗi giải mã dữ liệu', 'failed');
+            }
+        }
+
+        // Enhanced OTP Generation
+        function generateOTP() {
+            const otp = Math.floor(100000 + Math.random() * 900000).toString();
+            const timestamp = new Date().toLocaleTimeString();
+            gameState.currentOTP = otp;
+            showNotification(`📱 OTP: ${otp} (Có hiệu lực 5 phút)`, 'success');
+            addToHistory(`📱 Tạo OTP lúc ${timestamp}`, 'success');
+            
+            // Auto expire OTP after 5 minutes
+            setTimeout(() => {
+                if (gameState.currentOTP === otp) {
+                    gameState.currentOTP = '';
+                    showNotification('⏰ OTP đã hết hạn!', 'error');
+                }
+            }, 300000);
+        }
+
+        // Send transaction
+        function sendTransaction() {
+            const encrypted = document.getElementById('encryptedData').value;
+            if (!encrypted) {
+                showNotification('❌ Vui lòng mã hóa dữ liệu trước!', 'error');
+                return;
+            }
+            showNotification('📨 Giao dịch đã được gửi đến hệ thống!', 'success');
+            addToHistory('📨 Gửi gói tin mã hóa', 'success');
+            gameState.score += 15;
+            updateDisplay();
+        }
+
+        // Enhanced transaction verification
+        function verifyTransaction() {
+            const decrypted = document.getElementById('decryptedData').value;
+            const otpInput = document.getElementById('otpInput').value;
+
+            if (!decrypted) {
+                showNotification('❌ Vui lòng giải mã dữ liệu trước!', 'error');
+                return;
+            }
+
+            if (!otpInput) {
+                showNotification('❌ Vui lòng nhập mã OTP!', 'error');
+                return;
+            }
+
+            if (otpInput === gameState.currentOTP) {
+                completeTransaction();
+            } else {
+                showNotification('❌ Mã OTP không chính xác hoặc đã hết hạn!', 'error');
+                addToHistory('❌ Xác thực OTP thất bại', 'failed');
+                gameState.streak = 0;
+                updateDisplay();
+            }
+        }
+
+        // Complete successful transaction
+        function completeTransaction() {
+            const bonusPoints = 100 + (gameState.level * 20) + (gameState.streak * 10);
+            gameState.score += bonusPoints;
+            gameState.streak++;
+            
+            const transaction = {
+                id: gameState.transactions.length + 1,
+                time: new Date().toLocaleTimeString(),
+                status: 'success',
+                points: bonusPoints
+            };
+            
+            gameState.transactions.push(transaction);
+            
+            showNotification(`🎉 Giao dịch hoàn thành! +${bonusPoints} điểm`, 'success');
+            addToHistory(`✅ Giao dịch #${transaction.id} hoàn thành (+${bonusPoints} điểm)`, 'success');
+            
+            updateDisplay();
+            updateSecurityLevel();
+            
+            // Check for level up
+            if (gameState.streak >= 3) {
+                levelUp();
+            }
+            
+            // Auto show quiz every 5 successful transactions
+            if (gameState.transactions.length % 5 === 0) {
+                setTimeout(() => showQuiz(), 2000);
+            }
+            
+            resetForm();
+        }
+
+        // Level up function
+        function levelUp() {
+            gameState.level++;
+            gameState.streak = 0;
+            gameState.timer = Math.max(30, 60 - (gameState.level * 3));
+            const levelBonus = gameState.level * 50;
+            gameState.score += levelBonus;
+            
+            showNotification(`🎊 Chúc mừng! Lên cấp ${gameState.level}! +${levelBonus} điểm`, 'success');
+            addToHistory(`🎊 Lên cấp ${gameState.level} (+${levelBonus} điểm)`, 'success');
+            updateSecurityLevel();
+        }
+
+        // Update security level
+        function updateSecurityLevel() {
+            const bars = document.querySelectorAll('.security-bar');
+            const levelElement = document.getElementById('securityLevel');
+            
+            if (gameState.level <= 2) {
+                gameState.securityLevel = 1;
+                levelElement.textContent = '🔒 Mức độ Bảo mật: THƯỜNG';
+                bars.forEach((bar, index) => {
+                    bar.classList.toggle('active', index === 0);
+                });
+            } else if (gameState.level <= 5) {
+                gameState.securityLevel = 2;
+                levelElement.textContent = '🔐 Mức độ Bảo mật: CAO';
+                bars.forEach((bar, index) => {
+                    bar.classList.toggle('active', index <= 1);
+                });
+            } else if (gameState.level <= 8) {
+                gameState.securityLevel = 3;
+                levelElement.textContent = '🛡️ Mức độ Bảo mật: RẤT CAO';
+                bars.forEach((bar, index) => {
+                    bar.classList.toggle('active', index <= 2);
+                });
+            } else if (gameState.level <= 12) {
+                gameState.securityLevel = 4;
+                levelElement.textContent = '🔒 Mức độ Bảo mật: TỐI ĐA';
+                bars.forEach((bar, index) => {
+                    bar.classList.toggle('active', index <= 3);
+                });
+            } else {
+                gameState.securityLevel = 5;
+                levelElement.textContent = '⚡ Mức độ Bảo mật: SIÊU VIỆT';
+                bars.forEach(bar => bar.classList.add('active'));
+            }
+        }
+
+        // Generate SHA-256 Hash
+        async function generateHash() {
+            const input = document.getElementById('hashInput').value;
+            if (!input) {
+                showNotification('❌ Vui lòng nhập dữ liệu để hash!', 'error');
+                return;
+            }
+
+            try {
+                // Simple hash simulation for demo
+                const hash = generateSimpleHash(input);
+                document.getElementById('hashResult').value = hash;
+                showNotification('✅ Hash SHA-256 đã được tạo!', 'success');
+                addToHistory(`🔨 Tạo hash cho dữ liệu: ${input.substring(0, 20)}...`, 'success');
+                gameState.score += 5;
+                updateDisplay();
+            } catch (error) {
+                showNotification('❌ Lỗi tạo hash!', 'error');
+            }
+        }
+
+        // Simple hash function for demo
+        function generateSimpleHash(input) {
+            let hash = 0;
+            for (let i = 0; i < input.length; i++) {
+                const char = input.charCodeAt(i);
+                hash = ((hash << 5) - hash) + char;
+                hash = hash & hash; // Convert to 32-bit integer
+            }
+            return Math.abs(hash).toString(16).padStart(8, '0').repeat(8).substring(0, 64);
+        }
+
+        // Check Phishing
+        function checkPhishing() {
+            const input = document.getElementById('phishingInput').value.toLowerCase();
+            if (!input) {
+                showNotification('❌ Vui lòng nhập URL hoặc email để kiểm tra!', 'error');
+                return;
+            }
+
+            let result = '';
+            let isPhishing = false;
+
+            // Simple phishing detection rules
+            const phishingKeywords = ['urgent', 'khẩn cấp', 'verify now', 'suspended', 'click here', 'limited time', 'winners', 'congratulations'];
+            const suspiciousDomains = ['bit.ly', 'tinyurl.com', 'goo.gl', 'shortened'];
+            
+            if (phishingKeywords.some(keyword => input.includes(keyword))) {
+                isPhishing = true;
+                result = '⚠️ NGUY HIỂM: Phát hiện từ khóa lừa đảo!';
+            } else if (suspiciousDomains.some(domain => input.includes(domain))) {
+                isPhishing = true;
+                result = '⚠️ CẢNH BÁO: Liên kết rút gọn đáng nghi!';
+            } else if (input.includes('@') && !input.includes('.com') && !input.includes('.vn')) {
+                isPhishing = true;
+                result = '⚠️ CẢNH BÁO: Định dạng email bất thường!';
+            } else {
+                result = '✅ AN TOÀN: Không phát hiện dấu hiệu lừa đảo';
+            }
+
+            document.getElementById('phishingResult').value = result;
+            
+            if (isPhishing) {
+                showNotification('🚨 Phát hiện có nguy cơ phishing!', 'error');
+                addToHistory(`🚨 Phát hiện phishing: ${input.substring(0, 30)}...`, 'failed');
+            } else {
+                showNotification('✅ Kiểm tra an toàn hoàn tất!', 'success');
+                addToHistory(`✅ Kiểm tra an toàn: ${input.substring(0, 30)}...`, 'success');
+                gameState.score += 10;
+            }
+            
+            updateDisplay();
+        }
+
+        // Quiz Functions
+        function showQuiz() {
+            document.getElementById('quizPanel').style.display = 'block';
+            document.getElementById('quizPanel').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function startQuiz() {
+            gameState.currentQuiz = quizQuestions[Math.floor(Math.random() * quizQuestions.length)];
+            gameState.quizTimer = 180; // 3 minutes
+            gameState.selectedQuizAnswer = null;
+            
+            document.getElementById('quizQuestion').textContent = gameState.currentQuiz.question;
+            
+            const optionsContainer = document.getElementById('quizOptions');
+            optionsContainer.innerHTML = '';
+            
+            gameState.currentQuiz.options.forEach((option, index) => {
+                const optionDiv = document.createElement('div');
+                optionDiv.className = 'quiz-option';
+                optionDiv.textContent = option;
+                optionDiv.onclick = () => selectQuizAnswer(index);
+                optionDiv.dataset.index = index;
+                optionsContainer.appendChild(optionDiv);
+            });
+            
+            document.getElementById('submitQuizBtn').disabled = true;
+            startQuizTimer();
+            showNotification('🧠 Quiz bắt đầu! Bạn có 3 phút để trả lời.', 'success');
+        }
+
+        function selectQuizAnswer(index) {
+            gameState.selectedQuizAnswer = index;
+            
+            document.querySelectorAll('.quiz-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            
+            document.querySelector(`[data-index="${index}"]`).classList.add('selected');
+            document.getElementById('submitQuizBtn').disabled = false;
+        }
+
+        function submitQuizAnswer() {
+            if (gameState.selectedQuizAnswer === null) return;
+            
+            clearInterval(gameState.quizTimerInterval);
+            
+            const isCorrect = gameState.selectedQuizAnswer === gameState.currentQuiz.correct;
+            const options = document.querySelectorAll('.quiz-option');
+            
+            options.forEach((option, index) => {
+                if (index === gameState.currentQuiz.correct) {
+                    option.classList.add('correct');
+                } else if (index === gameState.selectedQuizAnswer && !isCorrect) {
+                    option.classList.add('incorrect');
+                }
+            });
+            
+            if (isCorrect) {
+                const quizPoints = 50 + (gameState.level * 10);
+                gameState.quizScore += quizPoints;
+                gameState.score += quizPoints;
+                showNotification(`🎉 Chính xác! +${quizPoints} điểm`, 'success');
+                addToHistory(`🧠 Quiz đúng (+${quizPoints} điểm): ${gameState.currentQuiz.question.substring(0, 30)}...`, 'success');
+            } else {
+                showNotification('❌ Sai rồi! Hãy học thêm về bảo mật.', 'error');
+                addToHistory(`❌ Quiz sai: ${gameState.currentQuiz.question.substring(0, 30)}...`, 'failed');
+            }
+            
+            // Show explanation
+            setTimeout(() => {
+                document.getElementById('quizQuestion').textContent = 
+                    `💡 Giải thích: ${gameState.currentQuiz.explanation}`;
+            }, 2000);
+            
+            updateDisplay();
+            
+            setTimeout(() => {
+                document.getElementById('quizPanel').style.display = 'none';
+            }, 5000);
+        }
+
+        function skipQuiz() {
+            clearInterval(gameState.quizTimerInterval);
+            document.getElementById('quizPanel').style.display = 'none';
+            showNotification('⏭️ Đã bỏ qua quiz.', 'success');
+        }
+
+        function startQuizTimer() {
+            gameState.quizTimerInterval = setInterval(() => {
+                gameState.quizTimer--;
+                const percent = (gameState.quizTimer / 180) * 100;
+                document.getElementById('quizTimerBar').style.width = percent + '%';
+                
+                if (gameState.quizTimer <= 0) {
+                    clearInterval(gameState.quizTimerInterval);
+                    showNotification('⏰ Hết thời gian quiz!', 'error');
+                    document.getElementById('quizPanel').style.display = 'none';
+                }
+            }, 1000);
+        }
+
+        // Reset form
+        function resetForm() {
+            document.getElementById('senderAccount').value = '';
+            document.getElementById('amount').value = '';
+            document.getElementById('message').value = '';
+            document.getElementById('aesKey').value = '';
+            document.getElementById('encryptedData').value = '';
+            document.getElementById('decryptKey').value = '';
+            document.getElementById('decryptedData').value = '';
+            document.getElementById('otpInput').value = '';
+        }
+
+        // Reset game
+        function resetGame() {
+            if (confirm('🔄 Bạn có chắc muốn khởi động lại game? Tất cả tiến trình sẽ bị mất.')) {
+                gameState = {
+                    score: 0,
+                    level: 1,
+                    streak: 0,
+                    timer: 60,
+                    currentAESKey: '',
+                    currentOTP: '',
+                    transactions: [],
+                    quizScore: 0,
+                    securityLevel: 1
+                };
+                
+                document.getElementById('transactionHistory').innerHTML = 
+                    '<div class="transaction-item">🏁 Game đã được khởi động lại!</div>';
+                
+                resetForm();
+                updateDisplay();
+                updateSecurityLevel();
+                showNotification('🔄 Game đã được khởi động lại thành công!', 'success');
+            }
+        }
+
+        // Timer functions
+        function startTimer() {
+            if (gameState.timerInterval) {
+                clearInterval(gameState.timerInterval);
+            }
+            
+            gameState.timerInterval = setInterval(() => {
+                gameState.timer--;
+                updateDisplay();
+                
+                if (gameState.timer <= 0) {
+                    showNotification('⏰ Hết thời gian! Session timeout.', 'error');
+                    gameState.timer = Math.max(30, 60 - (gameState.level * 3));
+                    gameState.streak = Math.max(0, gameState.streak - 1);
+                    addToHistory('⏰ Session timeout - Làm mới phiên', 'failed');
+                    resetForm();
+                    updateDisplay();
+                }
+            }, 1000);
+        }
+
+        // Next level
+        function nextLevel() {
+            const requiredScore = gameState.level * 200;
+            if (gameState.score >= requiredScore) {
+                levelUp();
+            } else {
+                showNotification(`❌ Cần ${requiredScore} điểm để lên cấp ${gameState.level + 1}!`, 'error');
+            }
+        }
+
+        // Update display
+        function updateDisplay() {
+            document.getElementById('score').textContent = gameState.score.toLocaleString();
+            document.getElementById('level').textContent = gameState.level;
+            document.getElementById('streak').textContent = gameState.streak;
+            document.getElementById('timer').textContent = gameState.timer;
+            document.getElementById('quizScore').textContent = gameState.quizScore.toLocaleString();
+            
+            // Update progress bar
+            const maxTime = Math.max(30, 60 - (gameState.level * 3));
+            const progressPercent = (gameState.timer / maxTime) * 100;
+            const progressBar = document.getElementById('progress');
+            progressBar.style.width = progressPercent + '%';
+            progressBar.textContent = `Thời gian còn lại: ${gameState.timer}s`;
+            
+            // Change color based on remaining time
+            if (progressPercent > 60) {
+                progressBar.style.background = 'linear-gradient(90deg, var(--success-green) 0%, var(--accent-gold) 50%, var(--success-green) 100%)';
+            } else if (progressPercent > 30) {
+                progressBar.style.background = 'linear-gradient(90deg, var(--warning-orange) 0%, var(--accent-gold) 50%, var(--warning-orange) 100%)';
+            } else {
+                progressBar.style.background = 'linear-gradient(90deg, var(--danger-red) 0%, var(--warning-orange) 50%, var(--danger-red) 100%)';
+            }
+        }
+
+        // Enhanced notification system
+        function showNotification(message, type = 'success') {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            
+            notification.className = 'notification';
+            if (type === 'error') {
+                notification.classList.add('error');
+            }
+            
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 4000);
+        }
+
+        // Add to transaction history
+        function addToHistory(message, type = 'success') {
+            const historyDiv = document.getElementById('transactionHistory');
+            const newTransaction = document.createElement('div');
+            newTransaction.className = `transaction-item transaction-${type === 'success' ? 'success' : 'failed'}`;
+            newTransaction.textContent = `${new Date().toLocaleTimeString()} - ${message}`;
+            historyDiv.insertBefore(newTransaction, historyDiv.firstChild);
+            
+            // Keep only last 20 transactions
+            while (historyDiv.children.length > 20) {
+                historyDiv.removeChild(historyDiv.lastChild);
+            }
+        }
+
+        // Format currency
+        function formatCurrency(amount) {
+            return new Intl.NumberFormat('vi-VN').format(amount);
+        }
+
+        // Export game data
+        function exportData() {
+            const data = {
+                gameState: gameState,
+                timestamp: new Date().toISOString(),
+                version: '2.0'
+            };
+            
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `securebank_save_${new Date().toISOString().slice(0, 10)}.json`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            showNotification('💾 Dữ liệu game đã được xuất!', 'success');
+            addToHistory('💾 Xuất dữ liệu game', 'success');
+        }
+
+        // Import game data
+        function importData() {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = '.json';
+            input.onchange = function(event) {
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        try {
+                            const data = JSON.parse(e.target.result);
+                            if (data.gameState) {
+                                gameState = { ...gameState, ...data.gameState };
+                                updateDisplay();
+                                updateSecurityLevel();
+                                showNotification('📁 Dữ liệu game đã được nhập!', 'success');
+                                addToHistory('📁 Nhập dữ liệu game', 'success');
+                            }
+                        } catch (error) {
+                            showNotification('❌ Lỗi đọc file dữ liệu!', 'error');
+                        }
+                    };
+                    reader.readAsText(file);
+                }
+            };
+            input.click();
+        }
+
+        // Emergency stop
+        function emergencyStop() {
+            clearInterval(gameState.timerInterval);
+            clearInterval(gameState.quizTimerInterval);
+            showNotification('🚨 Hệ thống đã dừng khẩn cấp!', 'error');
+            addToHistory('🚨 Kích hoạt dừng khẩn cấp', 'failed');
+        }
+
+        // Enhanced help modal
+        function showHelp() {
+            const modal = document.getElementById('modal');
+            const title = document.getElementById('modalTitle');
+            const content = document.getElementById('modalContent');
+            
+            title.textContent = '📖 Hướng dẫn SecureBank Pro';
+            content.innerHTML = `
+                <div style="text-align: left;">
+                    <h3>🎯 Mục tiêu Game:</h3>
+                    <p>Trở thành chuyên gia bảo mật ngân hàng bằng cách hoàn thành các giao dịch an toàn và trả lời quiz kiến thức.</p>
+                    
+                    <h3>📝 Quy trình Giao dịch:</h3>
+                    <ol>
+                        <li><strong>Tạo khóa AES-256:</strong> Bấm "Tạo khóa AES" để tạo khóa mã hóa</li>
+                        <li><strong>Nhập thông tin:</strong> Điền số tài khoản (9-12 chữ số), số tiền và nội dung</li>
+                        <li><strong>Mã hóa:</strong> Sử dụng AES-256 để bảo mật dữ liệu</li>
+                        <li><strong>Gửi giao dịch:</strong> Truyền dữ liệu mã hóa qua kênh an toàn</li>
+                        <li><strong>Giải mã:</strong> Sử dụng khóa để giải mã dữ liệu</li>
+                        <li><strong>Xác thực OTP:</strong> Nhập mã OTP 6 chữ số để hoàn tất</li>
+                    </ol>
+                    
+                    <h3>🧠 Mini Quiz:</h3>
+                    <ul>
+                        <li>Xuất hiện mỗi 5 giao dịch thành công</li>
+                        <li>Thời gian: 3 phút mỗi câu hỏi</li>
+                        <li>Điểm thưởng: 50-150 điểm tùy level</li>
+                        <li>Chủ đề: Bảo mật thông tin, mã hóa, phishing</li>
+                    </ul>
+                    
+                    <h3>🔧 Công cụ Bảo mật:</h3>
+                    <ul>
+                        <li><strong>Hash SHA-256:</strong> Tạo fingerprint cho dữ liệu</li>
+                        <li><strong>Phát hiện Phishing:</strong> Kiểm tra email/URL đáng nghi</li>
+                        <li><strong>Xuất/Nhập dữ liệu:</strong> Sao lưu tiến trình game</li>
+                    </ul>
+                    
+                    <h3>🏆 Hệ thống Điểm:</h3>
+                    <ul>
+                        <li>Tạo khóa AES: +10 điểm</li>
+                        <li>Mã hóa thành công: +20 điểm</li>
+                        <li>Giải mã thành công: +30 điểm</li>
+                        <li>Hoàn thành giao dịch: +100-300 điểm</li>
+                        <li>Quiz đúng: +50-150 điểm</li>
+                        <li>Bonus level: +50-500 điểm</li>
+                    </ul>
+                    
+                    <h3>🔒 Mức độ Bảo mật:</h3>
+                    <ul>
+                        <li><strong>Thường (Level 1-2):</strong> Giao dịch cơ bản</li>
+                        <li><strong>Cao (Level 3-5):</strong> Thêm xác thực</li>
+                        <li><strong>Rất cao (Level 6-8):</strong> Mã hóa nâng cao</li>
+                        <li><strong>Tối đa (Level 9-12):</strong> Bảo mật tối đa</li>
+                        <li><strong>Siêu việt (Level 13+):</strong> Chuyên gia</li>
+                    </ul>
+                </div>
+            `;
+            
+            modal.classList.add('show');
+        }
+
+        // Show upgrades modal
+        function showUpgrades() {
+            const modal = document.getElementById('modal');
+            const title = document.getElementById('modalTitle');
+            const content = document.getElementById('modalContent');
+            
+            title.textContent = '🏪 Cửa hàng Nâng cấp Bảo mật';
+            content.innerHTML = `
+                <div style="text-align: left;">
+                    <h3>💎 Gói Nâng cấp Có sẵn:</h3>
+                    <div style="margin: 20px 0;">
+                        <div style="background: var(--card-bg); padding: 15px; border-radius: 10px; margin: 10px 0; border-left: 4px solid var(--accent-gold);">
+                            <strong>🔥 Firewall Enterprise (500 điểm)</strong><br>
+                            <span style="color: var(--text-secondary);">• Chặn 95% tấn công mạng</span><br>
+                            <span style="color: var(--text-secondary);">• Tăng thời gian xử lý +15 giây</span><br>
+                            <span style="color: var(--text-secondary);">• Cảnh báo tự động</span>
+                        </div>
+                        <div style="background: var(--card-bg); padding: 15px; border-radius: 10px; margin: 10px 0; border-left: 4px solid var(--info-cyan);">
+                            <strong>⚡ Quantum Processor (800 điểm)</strong><br>
+                            <span style="color: var(--text-secondary);">• Tăng tốc mã hóa 300%</span><br>
+                            <span style="color: var(--text-secondary);">• Bonus +100 điểm mỗi giao dịch</span><br>
+                            <span style="color: var(--text-secondary);">• Hỗ trợ AES-512</span>
+                        </div>
+                        <div style="background: var(--card-bg); padding: 15px; border-radius: 10px; margin: 10px 0; border-left: 4px solid var(--success-green);">
+                            <strong>🤖 AI Security Suite (1200 điểm)</strong><br>
+                            <span style="color: var(--text-secondary);">• Phát hiện bất thường thời gian thực</span><br>
+                            <span style="color: var(--text-secondary);">• Tự động chặn phishing</span><br>
+                            <span style="color: var(--text-secondary);">• Machine Learning defense</span>
+                        </div>
+                        <div style="background: var(--card-bg); padding: 15px; border-radius: 10px; margin: 10px 0; border-left: 4px solid var(--warning-orange);">
+                            <strong>🛡️ Zero Trust Network (1500 điểm)</strong><br>
+                            <span style="color: var(--text-secondary);">• Xác thực đa lớp</span><br>
+                            <span style="color: var(--text-secondary);">• Mã hóa end-to-end</span><br>
+                            <span style="color: var(--text-secondary);">• Blockchain verification</span>
+                        </div>
+                    </div>
+                    <div style="text-align: center; background: rgba(255, 215, 0, 0.1); padding: 15px; border-radius: 10px;">
+                        <strong style="color: var(--accent-gold);">💰 Điểm hiện tại: ${gameState.score.toLocaleString()}</strong><br>
+                        <span style="color: var(--text-secondary); font-size: 0.9rem;">Tính năng mua nâng cấp sẽ có trong phiên bản tiếp theo!</span>
+                    </div>
+                </div>
+            `;
+            
+            modal.classList.add('show');
+        }
+
+        // Close modal
+        function closeModal() {
+            document.getElementById('modal').classList.remove('show');
+        }
+
+        // Event listeners
+        document.getElementById('modal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+            if (e.key === 'F1') {
+                e.preventDefault();
+                showHelp();
+            }
+        });
+
+        // Auto-resize particles on window resize
+        window.addEventListener('resize', function() {
+            const particles = document.querySelectorAll('.bank-particle');
+            particles.forEach(particle => {
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+            });
+        });
+
+        // Enhanced mouse parallax effect
+        document.addEventListener('mousemove', function(e) {
+            const particles = document.querySelectorAll('.bank-particle');
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
+
+            particles.forEach((particle, index) => {
+                const speed = (index % 7 + 1) * 0.4;
+                const xPos = (x - 0.5) * speed * 40;
+                const yPos = (y - 0.5) * speed * 40;
+                
+                particle.style.transform = `translate(${xPos}px, ${yPos}px) rotate(${(xPos + yPos) * 2}deg)`;
+            });
+        });
+
+        // Performance optimization
+        if (navigator.hardwareConcurrency < 4) {
+            document.documentElement.style.setProperty('--particle-count', '30');
+        }
+
+        // Auto-save game state every 5 minutes
+        setInterval(() => {
+            localStorage.setItem('secureBankPro_autoSave', JSON.stringify({
+                gameState: gameState,
+                timestamp: new Date().toISOString()
+            }));
+        }, 300000);
+
+        // Load auto-save on page load
+        window.addEventListener('load', function() {
+            const autoSave = localStorage.getItem('secureBankPro_autoSave');
+            if (autoSave) {
+                try {
+                    const data = JSON.parse(autoSave);
+                    const saveTime = new Date(data.timestamp);
+                    const now = new Date();
+                    
+                    // Load if save is less than 24 hours old
+                    if (now - saveTime < 24 * 60 * 60 * 1000) {
+                        gameState = { ...gameState, ...data.gameState };
+                        updateDisplay();
+                        updateSecurityLevel();
+                        showNotification('💾 Đã tải dữ liệu tự động lưu!', 'success');
+                    }
+                } catch (error) {
+                    console.log('Không thể tải auto-save');
+                }
+            }
+        });
+    </script>
+</body>
+</html>
